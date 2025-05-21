@@ -25,6 +25,7 @@ import {
 import { ExpandMore, Visibility } from '@mui/icons-material';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
+const app_base_url = process.env.REACT_APP_BASE_URL;
 
 const StudentCompetencies = () => {
   const { studentID } = useParams();
@@ -71,7 +72,7 @@ const StudentCompetencies = () => {
 
         // Fetch subjects data
         const subjectsResponse = await axios.get(
-          `http://localhost:5000/api/students/${studentID}/subjects`
+          `${app_base_url}/api/students/${studentID}/subjects`
         );
         
         // Log subjects response
@@ -79,7 +80,7 @@ const StudentCompetencies = () => {
 
         // Fetch student details
         const studentDetailsResponse = await axios.get(
-          `http://localhost:5000/api/students/${studentID}`
+          `${app_base_url}/api/students/${studentID}`
         );
         
         // Log student details

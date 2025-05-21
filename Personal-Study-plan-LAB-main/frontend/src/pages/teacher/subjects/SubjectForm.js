@@ -12,12 +12,13 @@ const SubjectForm = () => {
     const [credits, setCredits] = useState('');
     const [error, setError] = useState('');
     const [existingSubjects, setExistingSubjects] = useState([]);
+    const app_base_url = process.env.REACT_APP_BASE_URL;
 
     // Fetch existing subjects when component mounts
     useEffect(() => {
         const fetchSubjects = async () => {
             try {
-                const response = await axios.get("http://localhost:5000/api/subjects");
+                const response = await axios.get(app_base_url + "/api/subjects");
                 setExistingSubjects(response.data);
             } catch (err) {
                 console.error("Error fetching existing subjects:", err);

@@ -5,6 +5,8 @@ import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
+const app_base_url = process.env.REACT_APP_BASE_URL;
+
 const StudentHomePage = () => {
     const { currentUser } = useSelector((state) => state.user);
     const [studentData, setStudentData] = useState([]);
@@ -17,7 +19,7 @@ const StudentHomePage = () => {
                 if (studentID) {
                     console.log("Fetching data for student ID:", studentID);
                     const response = await axios.get(
-                        `http://localhost:5000/api/students/${studentID}/subjects`
+                        `${app_base_url}/api/students/${studentID}/subjects`
                     );
                     console.log("Student data received:", response.data);
                     setStudentData(response.data);

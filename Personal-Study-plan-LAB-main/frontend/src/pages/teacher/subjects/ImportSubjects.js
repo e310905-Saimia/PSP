@@ -65,12 +65,13 @@ const ImportSubjects = () => {
     data: null,
     message: ""
   });
+  const app_base_url = process.env.REACT_APP_BASE_URL;
   
   // Fetch existing subjects when component mounts
   useEffect(() => {
     const fetchSubjects = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/subjects");
+        const response = await axios.get(app_base_url + "/api/subjects");
         setExistingSubjects(response.data);
       } catch (err) {
         console.error("Error fetching existing subjects:", err);
@@ -324,7 +325,7 @@ const ImportSubjects = () => {
           if (existingSubject) {
             // Update existing subject
           await axios.put(
-              `http://localhost:5000/api/subjects/${existingSubject._id}`, 
+              `${app_base_url}/api/subjects/${existingSubject._id}`, 
               { name: subject.name, credits: subject.credits }
             );
             subjectId = existingSubject._id;
@@ -332,7 +333,7 @@ const ImportSubjects = () => {
           } else {
             // Create new subject
             const subjectResponse = await axios.post(
-              "http://localhost:5000/api/subjects", 
+              app_base_url + "/api/subjects", 
               { name: subject.name, credits: subject.credits }
             );
             subjectId = subjectResponse.data.subject._id;
@@ -344,7 +345,7 @@ const ImportSubjects = () => {
             // Get existing outcomes for the subject if it already existed
             let existingOutcomes = [];
             if (existingSubject) {
-              const subjectDetails = await axios.get(`http://localhost:5000/api/subjects/${subjectId}`);
+              const subjectDetails = await axios.get(`${app_base_url}/api/subjects/${subjectId}`);
               existingOutcomes = subjectDetails.data.outcomes || [];
             }
             
@@ -359,7 +360,7 @@ const ImportSubjects = () => {
               if (existingOutcome) {
                 // Update existing outcome
                 await axios.put(
-                  `http://localhost:5000/api/subjects/${subjectId}/outcomes/${existingOutcome._id}`,
+                  `${app_base_url}/api/subjects/${subjectId}/outcomes/${existingOutcome._id}`,
                   { 
                     topic: outcome.topic, 
                     project: outcome.project, 
@@ -371,7 +372,7 @@ const ImportSubjects = () => {
               } else {
                 // Add new outcome
                 const outcomeResponse = await axios.post(
-                  `http://localhost:5000/api/subjects/${subjectId}/outcomes`,
+                  `${app_base_url}/api/subjects/${subjectId}/outcomes`,
                   { 
                     topic: outcome.topic, 
                     project: outcome.project, 
@@ -385,7 +386,7 @@ const ImportSubjects = () => {
                   const outcomeId = outcomeResponse.data.subject.outcomes[outcomeResponse.data.subject.outcomes.length - 1]._id;
                   
                   await axios.put(
-                    `http://localhost:5000/api/subjects/${subjectId}/outcomes/${outcomeId}`,
+                    `${app_base_url}/api/subjects/${subjectId}/outcomes/${outcomeId}`,
                     { requirements: outcome.requirements }
                   );
                 }
@@ -410,7 +411,7 @@ const ImportSubjects = () => {
       dispatch(getSubjectList());
       
       // Fetch updated subjects list
-      const response = await axios.get("http://localhost:5000/api/subjects");
+      const response = await axios.get(app_base_url + "/api/subjects");
       setExistingSubjects(response.data);
       
       // Navigate back to the subjects list after a delay

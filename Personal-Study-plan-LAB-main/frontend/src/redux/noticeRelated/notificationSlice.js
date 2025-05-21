@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-
-const API_URL = "http://localhost:5000/api/notifications";
+const app_base_url = process.env.REACT_APP_BASE_URL;
+const API_URL = app_base_url + "/api/notifications";
 
 // Async thunks
 export const fetchNotifications = createAsyncThunk(
@@ -115,7 +115,7 @@ export const createNotification = createAsyncThunk(
       console.log("Creating notification with data:", notificationData);
 
       const response = await axios.post(
-        "http://localhost:5000/api/notifications",
+        API_URL,
         notificationData
       );
 

@@ -96,7 +96,8 @@ import {
 } from "./userSlice";
 
 //  Define the base URL for the API
-const BASE_URL = "http://localhost:5000/api";
+const app_base_url = process.env.REACT_APP_BASE_URL;
+const BASE_URL = app_base_url + "/api";
 
 export const loginUser = (fields, role) => async (dispatch) => {
   dispatch(loginRequest());

@@ -1,10 +1,11 @@
 import axios from "axios";
 import { getRequest, getSuccess, getFailed } from "./studentSlice";
+const app_base_url = process.env.REACT_APP_BASE_URL;
 
 export const getAllStudents = () => async (dispatch) => {
     dispatch(getRequest());
     try {
-        const response = await axios.get("http://localhost:5000/api/students/list");
+        const response = await axios.get(app_base_url + "/api/students/list");
         console.log("Fetched students:", response.data);
         dispatch(getSuccess(response.data));
     } catch (error) {
@@ -15,7 +16,7 @@ export const getAllStudents = () => async (dispatch) => {
 
 export const registerUser = (userData, role) => async (dispatch) => {
     try {
-        const response = await axios.post("http://localhost:5000/api/students/register", userData);
+        const response = await axios.post(app_base_url + "/api/students/register", userData);
         console.log("✅ Student Registered Successfully:", response.data);
         return response.data;
     } catch (error) {
@@ -28,7 +29,7 @@ export const getStudentSubjects = (studentID) => async (dispatch) => {
     dispatch(getRequest());
     try {
         console.log(`Fetching subjects for student ID: ${studentID}`);
-        const response = await axios.get(`http://localhost:5000/api/students/${studentID}/subjects`);
+        const response = await axios.get(`${app_base_url}/api/students/${studentID}/subjects`);
         console.log("Student subjects received:", response.data);
         
         // Properly storing the student's data in Redux
@@ -49,7 +50,7 @@ export const getStudentSubjects = (studentID) => async (dispatch) => {
 export const assignSubjectsToStudent = (studentID) => async (dispatch) => {
     dispatch(getRequest());
     try {
-        const response = await axios.post(`http://localhost:5000/api/students/${studentID}/assign-subjects`);
+        const response = await axios.post(`${app_base_url}/api/students/${studentID}/assign-subjects`);
         dispatch(getSuccess(response.data));
         return response.data;
     } catch (error) {
@@ -64,7 +65,7 @@ export const updateOutcomeProgress = (studentID, subjectID, outcomeID, data) => 
     dispatch(getRequest());
     try {
         const response = await axios.put(
-            `http://localhost:5000/api/students/${studentID}/subjects/${subjectID}/outcomes/${outcomeID}`, 
+            `${app_base_url}/api/students/${studentID}/subjects/${subjectID}/outcomes/${outcomeID}`, 
             data
         );
         return response.data;
@@ -79,7 +80,7 @@ export const updateOutcomeProgress = (studentID, subjectID, outcomeID, data) => 
 export const submitStudentProject = (studentID, subjectID, outcomeID, projectData) => async (dispatch) => {
     try {
         const response = await axios.post(
-            `http://localhost:5000/api/students/${studentID}/subjects/${subjectID}/outcomes/${outcomeID}/projects`,
+            `${app_base_url}/api/students/${studentID}/subjects/${subjectID}/outcomes/${outcomeID}/projects`,
             projectData
         );
         
@@ -98,7 +99,7 @@ export const deleteStudentProject = (studentID, subjectID, outcomeID, projectID)
     try {
         console.log(`Deleting project ${projectID} for student ${studentID}`);
         const response = await axios.delete(
-            `http://localhost:5000/api/students/${studentID}/subjects/${subjectID}/outcomes/${outcomeID}/projects/${projectID}`
+            `${app_base_url}/api/students/${studentID}/subjects/${subjectID}/outcomes/${outcomeID}/projects/${projectID}`
         );
         
         // Refresh the student's subjects data
@@ -115,7 +116,7 @@ export const deleteStudentProject = (studentID, subjectID, outcomeID, projectID)
 export const updateProjectAssessment = (studentID, subjectID, outcomeID, projectID, assessmentData) => async (dispatch) => {
     try {
         const response = await axios.put(
-            `http://localhost:5000/api/students/${studentID}/subjects/${subjectID}/outcomes/${outcomeID}/projects/${projectID}`,
+            `${app_base_url}/api/students/${studentID}/subjects/${subjectID}/outcomes/${outcomeID}/projects/${projectID}`,
             assessmentData
         );
         
@@ -134,7 +135,7 @@ export const getOutcomeProjects = (studentID, subjectID, outcomeID) => async (di
     dispatch(getRequest());
     try {
         const response = await axios.get(
-            `http://localhost:5000/api/students/${studentID}/subjects/${subjectID}/outcomes/${outcomeID}/projects`
+            `${app_base_url}/api/students/${studentID}/subjects/${subjectID}/outcomes/${outcomeID}/projects`
         );
         return response.data;
     } catch (error) {

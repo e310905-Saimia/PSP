@@ -46,7 +46,7 @@ const ProjectSelector = ({ studentID, subjectID, outcomeID, outcomeTopic, onProj
       console.log("Fetching active projects for student...");
       
       // Use the dedicated endpoint for active projects
-      const url = 'http://localhost:5000/api/projects/active';
+      const url = app_base_url + "/api/projects/active";
       console.log("API Request URL:", url);
   
       const response = await axios.get(url);

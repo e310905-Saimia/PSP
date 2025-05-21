@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { getRequest, getSuccess, getFailed } from './subjectSlice';
-
-const API_BASE_URL = "http://localhost:5000/api/subjects";
+const app_base_url = process.env.REACT_APP_BASE_URL;
+const API_BASE_URL = app_base_url + "/api/subjects";
 
 const parseDecimalValue = (value) => {
     if (value === undefined || value === null) return null;

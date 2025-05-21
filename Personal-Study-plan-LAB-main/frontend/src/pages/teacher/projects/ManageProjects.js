@@ -34,6 +34,7 @@ import {
   Delete as DeleteIcon,
 } from "@mui/icons-material";
 import SearchBar from "../../../components/SearchBar";
+const app_base_url = process.env.REACT_APP_BASE_URL;
 
 const ManageProjects = () => {
   const { currentUser } = useSelector((state) => state.user);
@@ -112,7 +113,7 @@ const ManageProjects = () => {
     setLoading(true);
     try {
       // Always fetch all projects to get correct counts
-      const url = "http://localhost:5000/api/projects";
+      const url = app_base_url + "/api/projects";
       console.log("Fetching all projects for counts");
       const response = await axios.get(url);
 
@@ -237,7 +238,7 @@ const ManageProjects = () => {
       if (editMode && selectedProject) {
         // Update existing project
         await axios.put(
-          `http://localhost:5000/api/projects/${selectedProject._id}`,
+          `${app_base_url}/api/projects/${selectedProject._id}`,
           {
             name: projectData.name,
             teacherID,
@@ -254,7 +255,7 @@ const ManageProjects = () => {
         });
       } else {
         // Create new project
-        await axios.post("http://localhost:5000/api/projects", {
+        await axios.post(app_base_url + "/api/projects", {
           name: projectData.name,
           teacherID,
           projectNumber: projectData.projectNumber,
@@ -294,7 +295,7 @@ const ManageProjects = () => {
 
     try {
       await axios.delete(
-        `http://localhost:5000/api/projects/${selectedProject._id}/soft`
+        `${app_base_url}/api/projects/${selectedProject._id}/soft`
       );
 
       setNotification({

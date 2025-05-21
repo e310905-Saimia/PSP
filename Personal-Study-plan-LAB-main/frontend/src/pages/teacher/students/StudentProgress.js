@@ -51,6 +51,7 @@ import {
   updateProjectAssessment,
 } from "../../../redux/studentRelated/studentHandle";
 import { fetchNotifications } from "../../../redux/noticeRelated/notificationSlice";
+const app_base_url = process.env.REACT_APP_BASE_URL;
 
 const formatNameFromEmail = (email) => {
   if (!email) return "Student";
@@ -270,7 +271,7 @@ const StudentProgress = () => {
 
       console.log("Fetching data for student ID:", studentID);
       const response = await axios.get(
-        `http://localhost:5000/api/students/${studentID}/subjects`
+        `${app_base_url}/api/students/${studentID}/subjects`
       );
 
       console.log("Student data received:", response.data);
@@ -295,7 +296,7 @@ const StudentProgress = () => {
       console.log(`Fetching student details for ID: ${studentID}`);
       
       // Direct API call to get student details
-      const response = await axios.get(`http://localhost:5000/api/students/${studentID}`);
+      const response = await axios.get(`${app_base_url}/api/students/${studentID}`);
       
       console.log("Full student response:", response.data);
   
@@ -468,13 +469,13 @@ const StudentProgress = () => {
       if (isEdit) {
         // Update existing subject
         await axios.put(
-          `http://localhost:5000/api/students/${studentID}/subjects/${subjectId}`,
+          `${app_base_url}/api/students/${studentID}/subjects/${subjectId}`,
           data
         );
       } else {
         // Add new subject
         await axios.post(
-          `http://localhost:5000/api/students/${studentID}/subjects`,
+          `${app_base_url}/api/students/${studentID}/subjects`,
           data
         );
       }
@@ -497,13 +498,13 @@ const StudentProgress = () => {
       if (isEdit) {
         // Update existing outcome
         await axios.put(
-          `http://localhost:5000/api/students/${studentID}/subjects/${subjectId}/outcomes/${outcomeId}`,
+          `${app_base_url}/api/students/${studentID}/subjects/${subjectId}/outcomes/${outcomeId}`,
           data
         );
       } else {
         // Add new outcome
         await axios.post(
-          `http://localhost:5000/api/students/${studentID}/subjects/${subjectId}/outcomes`,
+          `${app_base_url}/api/students/${studentID}/subjects/${subjectId}/outcomes`,
           data
         );
       }
@@ -524,7 +525,7 @@ const StudentProgress = () => {
       const { requirements, subjectId, outcomeId } = requirementDialog;
 
       await axios.put(
-        `http://localhost:5000/api/students/${studentID}/subjects/${subjectId}/outcomes/${outcomeId}`,
+        `${app_base_url}/api/students/${studentID}/subjects/${subjectId}/outcomes/${outcomeId}`,
         { requirements }
       );
 
@@ -572,17 +573,17 @@ const StudentProgress = () => {
       switch (type) {
         case "subject":
           await axios.delete(
-            `http://localhost:5000/api/students/${studentID}/subjects/${id}`
+            `${app_base_url}/api/students/${studentID}/subjects/${id}`
           );
           break;
         case "outcome":
           await axios.delete(
-            `http://localhost:5000/api/students/${studentID}/subjects/${subjectId}/outcomes/${id}`
+            `${app_base_url}/api/students/${studentID}/subjects/${subjectId}/outcomes/${id}`
           );
           break;
         case "project":
           await axios.delete(
-            `http://localhost:5000/api/students/${studentID}/subjects/${subjectId}/outcomes/${deleteDialog.outcomeId}/projects/${id}`
+            `${app_base_url}/api/students/${studentID}/subjects/${subjectId}/outcomes/${deleteDialog.outcomeId}/projects/${id}`
           );
           break;
         default:

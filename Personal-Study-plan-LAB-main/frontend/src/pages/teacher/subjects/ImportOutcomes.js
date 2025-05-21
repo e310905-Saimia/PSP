@@ -35,13 +35,14 @@ const ImportOutcomes = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [previewMode, setPreviewMode] = useState(false);
+  const app_base_url = process.env.REACT_APP_BASE_URL;
   
   // Fetch subject details
   useEffect(() => {
     const fetchSubject = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`http://localhost:5000/api/subjects/${subjectId}`);
+        const response = await axios.get(`${app_base_url}/api/subjects/${subjectId}`);
         setSubject(response.data);
         setLoading(false);
       } catch (error) {
@@ -177,7 +178,7 @@ const ImportOutcomes = () => {
     setSuccess("");
     
     try {
-      const response = await axios.post(`http://localhost:5000/api/subjects/${subjectId}/outcomes/import`, {
+      const response = await axios.post(`${app_base_url}/api/subjects/${subjectId}/outcomes/import`, {
         outcomes: parsedOutcomes
       });
       

@@ -30,6 +30,7 @@ import { deleteStudentProject } from '../redux/studentRelated/studentHandle';
 
 // Import the updated ProjectSelector
 import ProjectSelector from './ProjectSelector';
+const app_base_url = process.env.REACT_APP_BASE_URL;
 
 const MyProjects = ({ studentID, subjectID, outcomeID, outcomeTopic }) => {
   const dispatch = useDispatch();
@@ -50,7 +51,7 @@ const MyProjects = ({ studentID, subjectID, outcomeID, outcomeTopic }) => {
     try {
       console.log(`Fetching projects for studentID: ${studentID}, subjectID: ${subjectID}, outcomeID: ${outcomeID}`);
       const response = await axios.get(
-        `http://localhost:5000/api/students/${studentID}/subjects/${subjectID}/outcomes/${outcomeID}/projects`
+        `${app_base_url}/api/students/${studentID}/subjects/${subjectID}/outcomes/${outcomeID}/projects`
       );
       console.log('Projects fetched:', response.data);
       setProjects(response.data || []);

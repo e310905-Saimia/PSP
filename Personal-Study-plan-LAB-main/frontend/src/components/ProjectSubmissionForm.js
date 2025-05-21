@@ -21,6 +21,7 @@ import {
 import { Add as AddIcon } from '@mui/icons-material';
 import { submitStudentProject } from '../../../redux/studentRelated/studentHandle';
 import axios from 'axios';
+const app_base_url = process.env.REACT_APP_BASE_URL;
 
 // This component can be used in the student dashboard to submit projects
 const ProjectSubmissionForm = ({ studentID, subjectID, outcomeID, outcomeTopic }) => {
@@ -56,7 +57,7 @@ const ProjectSubmissionForm = ({ studentID, subjectID, outcomeID, outcomeTopic }
   const fetchProjects = async () => {
     setLoadingProjects(true);
     try {
-      const response = await axios.get("http://localhost:5000/api/projects");
+      const response = await axios.get(app_base_url+"/api/projects");
       setProjects(response.data);
     } catch (err) {
       console.error("Error fetching projects:", err);

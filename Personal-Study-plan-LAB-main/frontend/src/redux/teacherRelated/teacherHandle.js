@@ -9,13 +9,15 @@ import {
     postDone
 } from './teacherSlice';
 
+const app_base_url = process.env.REACT_APP_BASE_URL;
+
 // Add the registerTeacher function
 export const registerTeacher = (teacherData) => async (dispatch) => {
     dispatch(registerTeacherRequest());
     
     try {
         console.log("Registering teacher with data:", teacherData);
-        const response = await axios.post("http://localhost:5000/api/teachers/register", teacherData);
+        const response = await axios.post(app_base_url+"/api/teachers/register", teacherData);
         console.log("Teacher registration response:", response.data);
         dispatch(registerTeacherSuccess(response.data));
         return response.data;
@@ -50,7 +52,7 @@ export const getAllTeachers = () => async (dispatch) => {
     dispatch(getTeachersRequest());
 
     try {
-        const response = await axios.get("http://localhost:5000/api/teachers");
+        const response = await axios.get(app_base_url+"/api/teachers");
         dispatch(getTeachersSuccess(response.data));
         return response.data;
     } catch (error) {
@@ -64,7 +66,7 @@ export const getTeacherDetails = (id) => async (dispatch) => {
     dispatch(getTeachersRequest());
 
     try {
-        const result = await axios.get(`http://localhost:5000/api/teachers/${id}`);
+        const result = await axios.get(`${app_base_url}/api/teachers/${id}`);
         if (result.data) {
             dispatch(getTeachersSuccess(result.data));
         }
@@ -80,7 +82,7 @@ export const updateTeachSubject = (teacherId, teachSubject) => async (dispatch) 
     dispatch(getTeachersRequest());
 
     try {
-        const response = await axios.put("http://localhost:5000/api/teachers/update-subject", { 
+        const response = await axios.put(app_base_url+"/api/teachers/update-subject", { 
             teacherId, 
             subjectId: teachSubject 
         }, {

@@ -67,12 +67,13 @@ const StudentSubjects = () => {
 
   const [availableProjects, setAvailableProjects] = useState([]);
   const [projectsLoading, setProjectsLoading] = useState(false);
+  const app_base_url = process.env.REACT_APP_BASE_URL;
 
   const fetchAvailableProjects = async () => {
     setProjectsLoading(true);
     try {
       const response = await axios.get(
-        "http://localhost:5000/api/projects/active"
+        app_base_url + "/api/projects/active"
       );
       console.log("Available projects from teacher:", response.data);
       setAvailableProjects(response.data || []);
@@ -122,7 +123,7 @@ const StudentSubjects = () => {
         if (studentID) {
           console.log("Fetching data for student ID:", studentID);
           const response = await axios.get(
-            `http://localhost:5000/api/students/${studentID}/subjects`
+            `${app_base_url}/api/students/${studentID}/subjects`
           );
           console.log("Student data received:", response.data);
           setStudentData(response.data);
@@ -368,7 +369,7 @@ const StudentSubjects = () => {
 
       // Refresh student data directly
       const response = await axios.get(
-        `http://localhost:5000/api/students/${studentID}/subjects`
+        `${app_base_url}/api/students/${studentID}/subjects`
       );
       setStudentData(response.data);
 
@@ -419,7 +420,7 @@ const StudentSubjects = () => {
     try {
       // Call the API to delete the project
       await axios.delete(
-        `http://localhost:5000/api/students/${studentID}/subjects/${currentSubject.subjectId}/outcomes/${currentOutcome.outcomeId}/projects/${projectToDelete._id}`
+        `${app_base_url}/api/students/${studentID}/subjects/${currentSubject.subjectId}/outcomes/${currentOutcome.outcomeId}/projects/${projectToDelete._id}`
       );
 
       // Update the local studentData state
