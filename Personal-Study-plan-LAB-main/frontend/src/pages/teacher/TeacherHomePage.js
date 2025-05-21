@@ -4,7 +4,6 @@ import CountUp from "react-countup";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 
-// ✅ Recharts imports for graph
 import {
   BarChart,
   Bar,
@@ -36,7 +35,6 @@ const TeacherHomePage = () => {
   const numberOfStudents = studentsList?.length || 0;
   const numberOfSubjects = subjectsList?.length || 0;
 
-  // ✅ Chart data
   const data = [
     { name: "Students", count: numberOfStudents },
     { name: "Subjects", count: numberOfSubjects },
@@ -45,7 +43,7 @@ const TeacherHomePage = () => {
   return (
     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
       <Grid container spacing={3}>
-        {/* ✅ Summary Cards */}
+
         <Grid item xs={12} md={4} lg={4}>
           <StyledPaper>
             <Title>Total Students</Title>
@@ -59,7 +57,6 @@ const TeacherHomePage = () => {
           </StyledPaper>
         </Grid>
 
-        {/* ✅ Bar Chart */}
         <Grid item xs={12} md={12} lg={12}>
           <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
             <Typography variant="h6" align="center">
